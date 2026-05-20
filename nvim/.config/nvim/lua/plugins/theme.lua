@@ -1,0 +1,1 @@
+/home/menta/.config/omarchy/current/theme/neovim.lua
