@@ -55,3 +55,4 @@ o.bind("SUPER + A", "ChatGPT", { webapp = "https://chatgpt.com", focus = true })
 o.bind("SUPER + E", "Slack", { launch = "slack" })
 o.bind("SUPER + Q", "Antigravity", { launch = "antigravity" })
 o.bind("SUPER + S", "Screenshot area save and copy", [[sh -c 'mkdir -p "$HOME/Pictures/Screenshots"; file="$HOME/Pictures/Screenshots/screenshot-$(date +%Y%m%d-%H%M%S).png"; grim -g "$(slurp -d)" "$file" && wl-copy < "$file"']])
+
