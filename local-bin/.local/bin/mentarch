@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES="$HOME/.dotfiles"
+
+PACKAGES=(
+  hypr
+  waybar
+  walker
+  mako
+  alacritty
+  kitty
+  ghostty
+  nvim
+  tmux
+  btop
+  fastfetch
+  swayosd
+  starship
+  shell
+  local-bin
+)
+
+cd "$DOTFILES"
+
+case "${1:-}" in
+  pull)
+    git pull --rebase --autostash
+    stow --restow "${PACKAGES[@]}"
+    echo "Mentarch actualizado desde GitHub."
+    ;;
+
+  save)
+    shift || true
+    git add .
+
+    if git diff --cached --quiet; then
+      echo "No hay cambios para guardar."
+      exit 0
+    fi
+
+    git commit -m "${*:-Update Mentarch}"
+    git pull --rebase --autostash
+    git push
+    echo "Mentarch guardado y subido a GitHub."
+    ;;
+
+  status)
+    git status
+    ;;
+
+  *)
+    echo "Uso:"
+    echo "  mentarch pull"
+    echo "  mentarch save"
+    echo "  mentarch save \"mensaje del commit\""
+    echo "  mentarch status"
+    exit 1
+    ;;
+esac
